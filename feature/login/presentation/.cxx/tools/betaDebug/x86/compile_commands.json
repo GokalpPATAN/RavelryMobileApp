@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/.cxx/Debug/5z166a4c/x86",
+  "command": "/Users/ahmetgokalppatan/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=i686-none-linux-android24 --sysroot=/Users/ahmetgokalppatan/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dpresentation_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles/presentation.dir/presentation.cpp.o -c /Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/src/main/cpp/presentation.cpp",
+  "file": "/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/src/main/cpp/presentation.cpp"
+}
+]

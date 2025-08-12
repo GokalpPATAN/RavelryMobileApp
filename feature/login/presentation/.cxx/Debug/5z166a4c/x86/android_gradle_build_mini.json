@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/ahmetgokalppatan/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/.cxx/Debug/5z166a4c/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/ahmetgokalppatan/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/.cxx/Debug/5z166a4c/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "presentation::@6890427a1f51a3e7e1df": {
+      "artifactName": "presentation",
+      "abi": "x86",
+      "output": "/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/build/intermediates/cxx/Debug/5z166a4c/obj/x86/libpresentation.so",
+      "runtimeFiles": []
+    }
+  }
+}

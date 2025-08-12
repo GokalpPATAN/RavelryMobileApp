@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "281754388511",
+    "project_id": "moviecatchcompose",
+    "storage_bucket": "moviecatchcompose.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281754388511:android:b4acd1d22caec0ec52ad2a",
+        "android_client_info": {
+          "package_name": "com.patan.moviecatchcompose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281754388511-4ki69avnd69a4i70112g2hqq8g2mkksp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.patan.moviecatchcompose",
+            "certificate_hash": "515f68d56fd3ae6e11f7434432c3390681a7bd45"
+          }
+        },
+        {
+          "client_id": "281754388511-18s854l9jk1bsuki1a2no8bdnkb2bi5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiEcayXTFdbgT4Y8ce7E6XCT6KsJFq6VI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281754388511-18s854l9jk1bsuki1a2no8bdnkb2bi5e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

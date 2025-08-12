@@ -1,0 +1,3 @@
+/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/.cxx/Debug/5z166a4c/x86/CMakeFiles/presentation.dir
+/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/.cxx/Debug/5z166a4c/x86/CMakeFiles/edit_cache.dir
+/Users/ahmetgokalppatan/StudioProjects/MovieCatchCompose/feature/login/presentation/.cxx/Debug/5z166a4c/x86/CMakeFiles/rebuild_cache.dir
