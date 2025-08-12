@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import com.example.navigation.AppRoute
 import com.example.navigation.HomeScreenRoute
 import com.example.navigation.LoginScreenRoute
-import com.example.navigation.RegisterScreenRoute
 import com.example.navigation.loginScreen
 import com.example.navigation.signUpScreen
 import com.example.presentation.navigation.homeScreen

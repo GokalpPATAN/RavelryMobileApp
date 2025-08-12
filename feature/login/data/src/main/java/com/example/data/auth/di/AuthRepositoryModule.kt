@@ -7,7 +7,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import com.example.data.auth.repository.AuthRepositoryImpl
 import com.example.domain.auth.repository.AuthRepository
-import com.example.domain.auth.repository.GoogleIdTokenProvider
 import javax.inject.Singleton
 
 @Module

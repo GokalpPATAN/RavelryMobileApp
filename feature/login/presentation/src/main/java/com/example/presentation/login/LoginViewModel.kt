@@ -2,9 +2,6 @@ package com.example.presentation.login
 
 import android.content.Context
 import androidx.lifecycle.viewModelScope
-import com.example.domain.auth.usecase.LoginWithEmailUseCase
-import com.example.domain.auth.usecase.LoginWithGmailUseCase
-import com.example.domain.auth.usecase.RequestGoogleIdTokenUseCase
 import com.patan.core.common.core.CoreViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
