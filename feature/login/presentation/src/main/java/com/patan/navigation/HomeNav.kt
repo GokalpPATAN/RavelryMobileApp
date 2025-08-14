@@ -1,4 +1,12 @@
 package com.patan.navigation
 
-class HomeNav {
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+
+fun NavGraphBuilder.homeGraph(
+    onNavigateLogin: () -> Unit
+) {
+    composable(Routes.Home.value) {
+        HomeRoute(onNavigateLogin = onNavigateLogin)
+    }
 }

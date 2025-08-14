@@ -1,91 +1,54 @@
-package com.example.presentation.login
+package com.patan.presentation.login
 
-import android.content.Context
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.patan.core.common.core.CoreViewModel
+import com.patan.domain.auth.model.AuthResult
+import com.patan.domain.auth.usecase.ExchangeRavelryCodeUseCase
+import com.patan.domain.auth.usecase.StartRavelryLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginWithEmailUseCase,
-    private val loginWithGmailUseCase: LoginWithGmailUseCase,
-    private val requestGoogleIdToken: RequestGoogleIdTokenUseCase
-) : CoreViewModel<LoginScreenContract.State, LoginScreenContract.SideEffect, LoginScreenContract.Event>(
-    LoginScreenContract.State(isLoading = false)
-) {
+class LoginViewModel @Inject constructor(
+    private val startLogin: StartRavelryLoginUseCase,
+    private val exchange: ExchangeRavelryCodeUseCase
+) : ViewModel() {
 
-    override fun setEvent(event: LoginScreenContract.Event) {
-        when (event) {
-            is LoginScreenContract.Event.OnEmailChanged ->
-                updateState { it.copy(email = event.value) }
+    private val _state = MutableStateFlow(LoginScreenContract.LoginState())
+    val state: StateFlow<LoginScreenContract.LoginState> = _state
 
-            is LoginScreenContract.Event.OnPasswordChanged ->
-                updateState { it.copy(password = event.value) }
+    private val _effect = Channel<LoginScreenContract.LoginEffect>(Channel.BUFFERED)
+    val effect = _effect.receiveAsFlow()
 
-            LoginScreenContract.Event.OnLoginClicked -> loginWithEmail()
+    fun onEvent(event: LoginScreenContract.LoginEvent) = when(event){
+        LoginScreenContract.LoginEvent.ClickRavelry -> launchLogin()
+        LoginScreenContract.LoginEvent.ClickSignup  -> openSignup()
+    }
 
-            LoginScreenContract.Event.OnRegisterClicked ->
-                setSideEffect(LoginScreenContract.SideEffect.NavigateToRegister)
-
-            is LoginScreenContract.Event.OnLoginWithGmailClicked -> {
-                requestIdToken(event.ctx)
+    private fun launchLogin() = viewModelScope.launch {
+        _state.update { it.copy(loading = true, error = null) }
+        startLogin()                       // Custom Tab açılır
+        exchange().collect { result ->
+            when (result) {
+                is AuthResult.Loading ->
+                    _state.update { it.copy(loading = true) }
+                is AuthResult.Success -> {
+                    _state.update { it.copy(loading = false, success = true) }
+                    _effect.send(LoginScreenContract.LoginEffect.NavigateHome)
+                }
+                is AuthResult.Error -> {
+                    _state.update { it.copy(loading = false, error = result.message) }
+                    _effect.send(LoginScreenContract.LoginEffect.ShowError(result.message))
+                }
             }
         }
     }
 
-    private fun loginWithEmail() {
-        viewModelScope.launch {
-            loginUseCase(state.value.email, state.value.password)
-                .requester
-                .onLoading {
-                    updateState { it.copy(isLoading = true, errorMessage = null) }
-                }
-                .onError { error ->
-                    updateState { it.copy(isLoading = false, errorMessage = error.message) }
-                    setSideEffect(LoginScreenContract.SideEffect.ShowError(error.message))
-                }
-                .callWithSuccess {
-                    updateState { it.copy(isLoading = false, isSuccess = true) }
-                    setSideEffect(LoginScreenContract.SideEffect.NavigateToHome)
-                }
-        }
-    }
-
-    private fun loginWithGoogle(idToken: String) {
-        viewModelScope.launch {
-            loginWithGmailUseCase(idToken)
-                .requester
-                .onLoading {
-                    // Google akışında zaten loading true idi; yine de idempotent kalsın
-                    updateState { it.copy(isLoading = true, errorMessage = null) }
-                }
-                .onError { error ->
-                    updateState { it.copy(isLoading = false, errorMessage = error.message) }
-                    setSideEffect(LoginScreenContract.SideEffect.ShowError(error.message))
-                }
-                .callWithSuccess {
-                    updateState { it.copy(isLoading = false, isSuccess = true) }
-                    setSideEffect(LoginScreenContract.SideEffect.NavigateToHome)
-                }
-        }
-    }
-
-    private fun requestIdToken(context: Context){
-        viewModelScope.launch {
-            requestGoogleIdToken(context)
-                .requester
-                .onLoading {
-                    updateState { it.copy(isLoading = true, errorMessage = null) }
-                }
-                .onError { error ->
-                    updateState { it.copy(isLoading = false, errorMessage = error.message) }
-                    setSideEffect(LoginScreenContract.SideEffect.ShowError(error.message))
-                }
-                .callWithSuccess { idToken ->
-                    loginWithGoogle(idToken)
-                }
-        }
-    }
+    private fun openSignup() { /* dış tarayıcı açma işini UI tarafında yaptık */ }
 }

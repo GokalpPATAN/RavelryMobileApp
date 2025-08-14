@@ -1,12 +1,10 @@
-package com.example.domain.auth.usecase
+package com.patan.domain.auth.usecase
 
-import com.example.domain.auth.repository.AuthRepository
+import com.patan.domain.auth.repository.AuthRepository
 import javax.inject.Inject
 
 class LogoutUseCase @Inject constructor(
-    private val authRepository: AuthRepository
+    private val repo: AuthRepository
 ) {
-    suspend operator fun invoke() {
-        return authRepository.logout()
-    }
+    suspend operator fun invoke() = repo.logout()
 }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.patan.data"
     compileSdk = 36
 
     defaultConfig {

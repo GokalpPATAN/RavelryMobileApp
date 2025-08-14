@@ -1,4 +1,7 @@
 package com.patan.domain.auth.repository
 
-class UserRepository {
+import com.patan.domain.auth.model.User
+
+interface UserRepository {
+    suspend fun getCurrentUser(): User
 }

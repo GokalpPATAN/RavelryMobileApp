@@ -1,100 +1,64 @@
-package com.example.presentation.login
+package com.patan.feature.login.presentation.login
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.example.components.GoogleButton
+import com.patan.presentation.login.LoginScreenContract
+
 
 @Composable
-internal fun LoginScreenContent(
-    state: LoginScreenContract.State,
-    onEvent: (LoginScreenContract.Event) -> Unit
+fun LoginScreenContent(
+    state: LoginScreenContract.LoginState,
+    onEvent: (LoginScreenContract.LoginEvent) -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
-            value = state.email,
-            onValueChange = { onEvent(LoginScreenContract.Event.OnEmailChanged(it)) },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
+    val context = LocalContext.current
 
-        Spacer(modifier = Modifier.height(8.dp))
+    Box(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(24.dp)
+                .align(Alignment.Center)
+        ) {
+            Text("Ravelry ile Giriş", style = MaterialTheme.typography.headlineMedium)
 
-        TextField(
-            value = state.password,
-            onValueChange = { onEvent(LoginScreenContract.Event.OnPasswordChanged(it)) },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(text = "Forgot Password", textDecoration = TextDecoration.Underline, modifier = Modifier.clickable(
-            onClick = {
-
-            }
-        ).align(Alignment.End))
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-
-        if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-        } else {
-            Button(
-                onClick = { onEvent(LoginScreenContract.Event.OnLoginClicked) },
-                modifier = Modifier.fillMaxWidth().height(36.dp),
-                shape = RoundedCornerShape(50)
-            ) {
-                Text("Login")
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(Modifier.height(16.dp))
 
             Button(
-                onClick = { onEvent(LoginScreenContract.Event.OnRegisterClicked) },
-                modifier = Modifier.fillMaxWidth().height(36.dp),
-                shape = RoundedCornerShape(50)
-            ) {
-                Text("Sign Up")
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { onEvent(LoginScreenContract.LoginEvent.ClickRavelry) },
+                enabled = !state.loading
+            ) { Text("Ravelry ile Devam Et") }
+
+            Spacer(Modifier.height(12.dp))
+
+            Text(
+                "Hesabın yok mu? Ravelry’de oluştur",
+                modifier = Modifier.clickable {
+                    val uri = Uri.parse("https://www.ravelry.com/account/login?show_sign_up=true")
+                    context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    onEvent(LoginScreenContract.LoginEvent.ClickSignup)
+                },
+                textAlign = TextAlign.Center
+            )
+
+            if (state.loading) {
+                Spacer(Modifier.height(16.dp))
+                LinearProgressIndicator(Modifier.fillMaxWidth())
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            val ctx = LocalContext.current
-            GoogleButton(
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                onEvent(LoginScreenContract.Event.OnLoginWithGmailClicked(ctx))
+            state.error?.let {
+                Spacer(Modifier.height(8.dp))
+                Text(it, color = MaterialTheme.colorScheme.error)
             }
-
-        }
-        state.errorMessage?.let {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = it, color = Color.Red)
         }
     }
 }

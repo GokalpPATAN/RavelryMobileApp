@@ -1,4 +1,4 @@
-package com.example.home
+package com.patan.home
 
 import org.junit.Test
 

@@ -1,4 +1,5 @@
 package com.patan.domain.session
 
-class SessionRepository {
+interface SessionRepository {
+    suspend fun isLoggedIn(): Boolean
 }

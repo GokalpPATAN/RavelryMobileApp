@@ -79,7 +79,7 @@ private fun Project.configureKotlin() {
     }
 }
 
-internal fun Project.defaultSecrets(): Properties {
+fun Project.defaultSecrets(): Properties {
     val keystoreFile = this.file("secrets.properties")
     val properties = Properties()
     properties.load(keystoreFile.inputStream())

@@ -1,1 +1,26 @@
-/build
+# Gradle
+.gradle/
+**/.gradle/
+**/build/
+
+# IDE
+*.iml
+.idea/
+.idea/**
+# Android Studio / IntelliJ
+.idea/caches
+.idea/libraries
+.idea/workspace.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Lokal config
+local.properties
+
+# Native/NDK
+.externalNativeBuild/
+.cxx/
+
+# Diğer
+captures/

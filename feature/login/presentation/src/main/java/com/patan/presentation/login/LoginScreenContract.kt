@@ -1,33 +1,23 @@
-package com.example.presentation.login
+package com.patan.presentation.login
 
-import com.patan.core.common.core.CoreState
+interface UiEvent
+interface UiEffect
+interface UiState
+class LoginScreenContract{
 
-internal class LoginScreenContract {
+    data class LoginState(
+        val loading: Boolean = false,
+        val success: Boolean = false,
+        val error: String? = null
+    ) : UiState
 
-    data class State(
-        override val isLoading: Boolean,
-        val email: String = "",
-        val password: String = "",
-        val isSuccess: Boolean = false,
-        val errorMessage: String? = null
-    ) : CoreState.ViewState
-
-    sealed class Event : CoreState.Event {
-        data class OnEmailChanged(val value: String) : Event()
-        data class OnPasswordChanged(val value: String) : Event()
-        object OnLoginClicked : Event()
-        object OnRegisterClicked : Event()
-        data class OnLoginWithGmailClicked(val ctx: android.content.Context) : Event()
-
+    sealed class LoginEvent : UiEvent {
+        data object ClickRavelry : LoginEvent()
+        data object ClickSignup : LoginEvent()
     }
 
-    sealed class SideEffect : CoreState.SideEffect {
-        object NavigateToHome : SideEffect()
-        object NavigateToRegister : SideEffect()
-        data class ShowError(val message: String) : SideEffect()
-    }
-
-    object Static {
-        const val EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+    sealed class LoginEffect : UiEffect {
+        data object NavigateHome : LoginEffect()
+        data class ShowError(val message: String) : LoginEffect()
     }
 }

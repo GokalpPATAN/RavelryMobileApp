@@ -1,12 +1,29 @@
 package com.patan.data.auth.settings
 
+import android.content.Context
+import com.patan.feature.login.data.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class RavelrySettingsImpl @Inject constructor() : RavelrySettings {
-    override val clientId: String get() = BuildConfig.RAVELRY_CLIENT_ID
-    override val clientSecret: String get() = BuildConfig.RAVELRY_CLIENT_SECRET
-    override val redirectUri: String get() = BuildConfig.RAVELRY_REDIRECT_URI
-    override val scopes: String get() = BuildConfig.RAVELRY_SCOPES
-    override val authUrl: String get() = BuildConfig.RAVELRY_AUTH_URL
-    override val tokenUrl: String get() = BuildConfig.RAVELRY_TOKEN_URL
+class RavelrySettingsRes @Inject constructor(
+    @ApplicationContext private val context: Context
+) : RavelrySettings {
+
+    override val clientId: String
+        get() = context.getString(R.string.ravelry_client_id)
+
+    override val clientSecret: String
+        get() = context.getString(R.string.ravelry_client_secret)
+
+    override val redirectUri: String
+        get() = context.getString(R.string.ravelry_redirect_uri)
+
+    override val scopes: String
+        get() = context.getString(R.string.ravelry_scopes)
+
+    override val authUrl: String
+        get() = context.getString(R.string.ravelry_auth_url)
+
+    override val tokenUrl: String
+        get() = context.getString(R.string.ravelry_token_url)
 }
