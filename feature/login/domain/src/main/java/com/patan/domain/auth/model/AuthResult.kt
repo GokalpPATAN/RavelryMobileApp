@@ -1,4 +1,4 @@
-package com.patan.domain.model
+package com.patan.domain.auth.model
 sealed class AuthResult {
     data object Loading : AuthResult()
     data object Success : AuthResult()

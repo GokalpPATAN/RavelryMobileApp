@@ -1,9 +1,8 @@
-package com.example.presentation.navigation
+package com.patan.presentation.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.navigation.HomeScreenRoute
-import com.example.presentation.HomeScreen
+import com.patan.presentation.HomeScreen
 
 fun NavGraphBuilder.homeScreen() {
     composable<HomeScreenRoute> {

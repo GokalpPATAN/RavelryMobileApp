@@ -1,4 +1,7 @@
 package com.patan.presentation.login
 
-class AuthGateContract {
+sealed interface AuthGateState : UiState {
+    data object Checking : AuthGateState
+    data object Authenticated : AuthGateState
+    data object Unauthenticated : AuthGateState
 }

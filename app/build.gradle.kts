@@ -87,7 +87,7 @@ dependencies {
     implementation(projects.core.navigation)
 
     // Projects - Feature
-    implementation(projects.feature.home.presentation)
+//    implementation(projects.feature.home.presentation)
     implementation(projects.feature.login.presentation)
     implementation(projects.feature.login.data)
 

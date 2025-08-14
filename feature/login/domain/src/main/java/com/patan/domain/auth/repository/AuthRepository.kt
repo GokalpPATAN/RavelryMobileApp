@@ -1,12 +1,13 @@
-package com.example.domain.auth.repository
+package com.patan.domain.auth.repository
 
-import com.patan.core.common.model.RestResult
+import com.patan.domain.auth.model.AuthResult
 import kotlinx.coroutines.flow.Flow
-
 interface AuthRepository {
-    suspend fun loginWithEmail(email: String, password: String): Flow<RestResult<Unit>>
-    suspend fun loginWithGmail(idToken: String): Flow<RestResult<Unit>>
-    suspend fun register(email: String, password: String): Flow<RestResult<Unit>>
-    suspend fun forgotPassword(email: String): Flow<RestResult<Unit>>
+    /** Yetkilendirme sayfasını açar (Custom Tab). */
+    suspend fun startLogin()
+
+    /** Redirect geldikten sonra code→token değişimini yapar. */
+    fun awaitAndExchange(): Flow<AuthResult>
+
     suspend fun logout()
 }
